@@ -1,13 +1,20 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import ArtistList from './components/ArtistList'
+import Home from './components/Home'
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-       Hello world
-      </div>
+      <Router>
+        <div className="App">
+          <Switch>
+            <Route exact path="/" component={Home}/>
+            <Route exact path="/artists" component={ArtistList} />
+          </Switch>
+        </div>
+      </Router>
     );
   }
 }
