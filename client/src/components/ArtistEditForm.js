@@ -1,37 +1,34 @@
 import React, { Component } from 'react';
 import axios from 'axios'
 
-class NewArtistForm extends Component {
+class ArtistEditForm extends Component {
     state = {
         artist: {
-            name: '',
-            photo_url: '',
-            nationality: ''
+            name: this.props.artist.name,
+            photo_url: this.props.artist.photo_url,
+            nationality: this.props.artist.nationality
         }
     }
 
     handleChange = (event) => {
-        const newState = { ...this.state.artist }
+        const updatedState = { ...this.state.artist }
         const userInput = event.target.name
-        newState[userInput] = event.target.value
-        this.setState({ artist: newState })
+        updatedState[userInput] = event.target.value
+        this.setState({ artist: updatedState })
     }
 
     handleSubmit = (event) => {
         event.preventDefault()
         const payload = this.state.artist
-        axios.post(`/api/artists`, payload)
-            .then((res) => {
-                console.log('posted')
-                this.props.getAllArtists()
-            })
+        axios.patch(`/api/artists/${this.props.artist.id}`, payload).then(() => {
+            this.props.getSingleArtist()
+        })
     }
 
     render() {
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
-
                     <div>
                         <input onChange={this.handleChange} type="text" name="name" placeholder="name" value={this.state.artist.name} />
                     </div>
@@ -48,4 +45,4 @@ class NewArtistForm extends Component {
     }
 }
 
-export default NewArtistForm;
+export default ArtistEditForm;

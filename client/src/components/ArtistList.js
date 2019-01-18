@@ -23,8 +23,7 @@ class ArtistList extends Component {
     }
 
     render() {
-
-        const formComponent = this.state.toggleFormView ? <NewArtistForm/> : null
+        const formComponent = this.state.toggleFormView ? <NewArtistForm getAllArtists={this.getAllArtists}/> : null
 
         return (
             <div>
